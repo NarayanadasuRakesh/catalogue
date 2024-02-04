@@ -5,7 +5,6 @@ pipeline {
     environment {
         packageVersion = ''
         nexusURL = credentials('nexusURL') //Congifure inside manage credentials section
-        environment = 'dev'
     }
     options {
         ansiColor('xterm') //ansiColor plugin
@@ -64,7 +63,7 @@ pipeline {
                 script {
                     def params = [
                         string(name: 'version',value: "${packageVersion}")
-                        string(name: 'environment',value: "${environment}")
+                        string(name: 'environment',value: "dev")
                     ]
                     build job: "catalogue-deploy", wait: true, paramaters:params //triggers catalogue-deploy job
                 }
