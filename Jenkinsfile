@@ -13,10 +13,7 @@ pipeline {
     stages {
         stage('Get the version') {
             steps {
-                sh '''
-                    cd catalogue
-                    ls -la
-                '''
+                sh 'ls -la'
                 script { //Pipeline utility steps plugin
                     def packageJson = readJSON file: 'package.json'
                     packageVersion = packageJson.version
@@ -27,7 +24,7 @@ pipeline {
         stage('Install dependencies') {
             steps {     //Install nodejs in agent/node
                 sh '''
-                    cd catalogue
+                    ls -la
                     npm install
                 '''
             }
@@ -35,7 +32,6 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                    cd catalogue
                     ls -la
                     zip -q -r catalogue.zip ./* -x ".git" -x "*.zip"
                     ls -ltr
