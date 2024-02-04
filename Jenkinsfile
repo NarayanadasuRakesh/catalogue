@@ -43,21 +43,23 @@ pipeline {
             }
         }
         stage('upload artifact') { //Nexus Artifact Uploader plugin
-            nexusArtifactUploader(
-                nexusVersion: 'nexus3',
-                protocol: 'http',
-                nexusUrl: "${env.nexusURL}",
-                groupId: 'com.robotshop',
-                version: "${packageVersion}", //Updates nexus repository with new sematic version
-                repository: 'catalogue',
-                credentialsId: 'nexus-auth', //Congifure inside manage credentials section
-                artifacts: [
-                    [artifactId: 'catalogue',
-                    classifier: '',
-                    file: 'catalogue.zip',
-                    type: 'zip']
-                ]
-            )
+            steps {
+                nexusArtifactUploader(
+                    nexusVersion: 'nexus3',
+                    protocol: 'http',
+                    nexusUrl: "${env.nexusURL}",
+                    groupId: 'com.robotshop',
+                    version: "${packageVersion}", //Updates nexus repository with new sematic version
+                    repository: 'catalogue',
+                    credentialsId: 'nexus-auth', //Congifure inside manage credentials section
+                    artifacts: [
+                        [artifactId: 'catalogue',
+                        classifier: '',
+                        file: 'catalogue.zip',
+                        type: 'zip']
+                    ]
+                )
+            }
         }
         stage('Trigger-deploy-job') {
             steps {
