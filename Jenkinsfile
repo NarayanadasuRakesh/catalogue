@@ -46,7 +46,7 @@ pipeline {
                 nexusArtifactUploader(
                     nexusVersion: 'nexus3',
                     protocol: 'http',
-                    
+                    //nexusUrl: "${env.nexusURL}",
                     nexusUrl: "${params.nexusURL}",
                     groupId: 'com.robotshop',
                     version: "${packageVersion}", //Updates nexus repository with new sematic version
