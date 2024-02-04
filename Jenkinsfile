@@ -4,11 +4,14 @@ pipeline {
     }
     environment {
         packageVersion = ''
-        nexusURL = credentials('nexusURL') //Congifure inside manage credentials section
+        //nexusURL = credentials('nexusURL')
         environment = 'dev'
     }
     options {
         ansiColor('xterm') //ansiColor plugin
+    }
+    parameters {
+        string(name:'nexusURL', defaultValue: '')
     }
     stages {
         stage('Get the version') {
@@ -43,7 +46,8 @@ pipeline {
                 nexusArtifactUploader(
                     nexusVersion: 'nexus3',
                     protocol: 'http',
-                    nexusUrl: "${env.nexusURL}",
+                    //nexusUrl: "${env.nexusURL}",
+                    nexusUrl: "${params.nexusURL}",
                     groupId: 'com.robotshop',
                     version: "${packageVersion}", //Updates nexus repository with new sematic version
                     repository: 'catalogue',
