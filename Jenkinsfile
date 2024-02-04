@@ -65,7 +65,7 @@ pipeline {
                         string(name: 'version', value: "${packageVersion}")
                         string(name: 'environment', value: "dev")
                     ]
-                    build job: "catalogue-deploy", wait: true, paramaters:params //triggers catalogue-deploy job
+                    build job: "catalogue-deploy", wait: true, parameters:params //triggers catalogue-deploy job
                 }
             }
         }
