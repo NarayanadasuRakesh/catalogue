@@ -62,7 +62,7 @@ pipeline {
         stage('Trigger-deploy-job') {
             steps {
                 script {
-                    def parms = [
+                    def params = [
                         string(name: 'version',value: "${packageVersion}")
                         string(name: 'environment',value: "${environment}")
                     ]
