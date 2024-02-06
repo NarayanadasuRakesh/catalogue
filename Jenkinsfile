@@ -65,7 +65,7 @@ pipeline {
         stage('Trigger-deploy-job') {
             when {
                 expression {
-                    $params.Deploy == 'true'
+                    "${params.Deploy}" == 'true'
                 }
             }
             steps {
