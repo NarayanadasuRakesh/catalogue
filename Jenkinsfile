@@ -12,7 +12,7 @@ pipeline {
     }
     parameters {
         //string(name:'nexusURL', defaultValue: '')
-        booleanParams(name: 'Deploy', defaultValue: false)
+        booleanParam(name: 'Deploy', defaultValue: false)
     }
     stages {
         stage('Get the version') {
