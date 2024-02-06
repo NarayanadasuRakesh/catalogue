@@ -3,7 +3,7 @@
 @Library('jenkins-shared-library') _
 
 def configMap = [
-    application: "nodejsVM"
+    application: "nodejsVM",
     component: "catalogue"
 ]
 
