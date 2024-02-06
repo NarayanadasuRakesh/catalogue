@@ -4,14 +4,15 @@ pipeline {
     }
     environment {
         packageVersion = ''
-        //nexusURL = credentials('nexusURL')
+        nexusURL = credentials('nexusURL')
         environment = 'dev'
     }
     options {
         ansiColor('xterm') //ansiColor plugin
     }
     parameters {
-        string(name:'nexusURL', defaultValue: '')
+        //string(name:'nexusURL', defaultValue: '')
+        booleanParams(name: 'Deploy', defaultValue: false)
     }
     stages {
         stage('Get the version') {
@@ -46,8 +47,8 @@ pipeline {
                 nexusArtifactUploader(
                     nexusVersion: 'nexus3',
                     protocol: 'http',
-                    //nexusUrl: "${env.nexusURL}",
-                    nexusUrl: "${params.nexusURL}",
+                    nexusUrl: "${env.nexusURL}",
+                    //nexusUrl: "${params.nexusURL}",
                     groupId: 'com.roboshop',
                     version: "${packageVersion}", //Updates nexus repository with new sematic version
                     repository: 'catalogue',
@@ -62,6 +63,11 @@ pipeline {
             }
         }
         stage('Trigger-deploy-job') {
+            when {
+                expression {
+                    $params.Deploy == 'true'
+                }
+            }
             steps {
                 script {
                     def params = [
